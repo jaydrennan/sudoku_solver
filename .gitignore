@@ -1,0 +1,8 @@
+idea/
+python-version/
+src/__pycache__
+__pycache__
+.idea
+.python-version
+tests/.pytest_cache
+*/.pyc

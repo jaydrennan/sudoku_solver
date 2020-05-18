@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sudoku</title>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<h2>Enter Known Values:</h2>
+    <form action="/update" method="post">
+        {% for y in range(0,9) %}
+            {% for x in range(0,9) %}
+                <input type='text' name='{{x}}{{y}}' value = '0' size="2">
+            {%  endfor %}
+            <br>
+        {% endfor %}
+        <input type='submit' value='Submit'>
+    </form>
+
+
+
+</body>
+</html>
