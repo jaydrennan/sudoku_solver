@@ -1,4 +1,4 @@
-from sudoku_pkg.find_possible_values import (
+from sudoku_solver.find_possible_values import (
     find_possible_values,
     check_row,
     check_column,
