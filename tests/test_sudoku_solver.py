@@ -13,7 +13,8 @@ def test_get_iterations():
         [9, 7, 0, 0, 2, 1, 0, 0, 0],
         [0, 0, 1, 0, 4, 6, 9, 7, 3],
     ]
-    assert get_solution(original_sudoku) == [
+    solution = get_solution(original_sudoku)
+    assert solution == [
         [4, 6, 9, 7, 5, 8, 3, 2, 1],
         [1, 8, 7, 2, 3, 4, 6, 9, 5],
         [5, 3, 2, 6, 1, 9, 4, 8, 7],
@@ -24,3 +25,8 @@ def test_get_iterations():
         [9, 7, 4, 3, 2, 1, 5, 6, 8],
         [8, 2, 1, 5, 4, 6, 9, 7, 3],
     ]
+    assert len(solution) == 9
+    for row in solution:
+        assert len(row) == len(set(row))
+        assert len(row) == 9
+        assert 0 not in row
