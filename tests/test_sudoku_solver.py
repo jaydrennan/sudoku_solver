@@ -1,7 +1,7 @@
 from sudoku_solver.sudoku_solver import get_solution
 
 
-def test_get_iterations():
+def test_get_solution():
     original_sudoku = [
         [4, 6, 9, 7, 5, 0, 3, 0, 0],
         [0, 0, 0, 2, 3, 0, 0, 9, 5],
