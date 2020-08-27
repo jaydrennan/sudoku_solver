@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
-
-from sudoku_solver.sudoku_solver import get_solution
+from sudoku_solver.sudoku_grid import Sudoku
 
 
 app = Flask(__name__)
@@ -13,13 +12,13 @@ def index():
 
 @app.route("/update", methods=["GET", "POST"])
 def update():
-    input_sudoku = [[0 for j in range(9)] for k in range(9)]
+    input_sudoku = [[]]
 
     for y in range(9):
         for x in range(9):
             input_sudoku[y][x] = int(request.form[f"{x}{y}"])
-
-    final_solution = get_solution(input_sudoku)
+    sudoku_grid = Sudoku(input_sudoku)
+    final_solution = sudoku_grid.solve()
     return render_template("solutions.html", final_solution=final_solution)
 
 
