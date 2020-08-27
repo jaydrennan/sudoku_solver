@@ -1,6 +1,4 @@
-import copy
-from sudoku_solver.find_possible_values import find_possible_values
-from sudoku_solver.updater import update
+from sudoku_solver.find_possible_values import solve_grid
 
 
 class Sudoku:
@@ -8,19 +6,7 @@ class Sudoku:
         self.grid = grid
 
     def solve(self):
-        sudoku_position_possibilities = find_possible_values(self.grid)
-
-        updated_sudoku = update(sudoku_position_possibilities, self.grid)
-        iterations = [updated_sudoku]
-        prev = 0
-
-        while prev != updated_sudoku:
-            prev = copy.deepcopy(updated_sudoku)
-            sudoku_position_possibilities = find_possible_values(updated_sudoku)
-            updated_sudoku = update(sudoku_position_possibilities, updated_sudoku)
-            iterations.append(updated_sudoku)
-
-        return iterations[0]
+        return solve_grid(self.grid)
 
     def __str__(self):
         grid_representation = "~~~~~~~~~~~~~~~~~~~~~\n"

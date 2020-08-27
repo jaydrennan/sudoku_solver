@@ -1,49 +1,63 @@
 import math
 
 
-def find_possible_values(sudoku_puzzle):
+def solve_grid(sudoku_puzzle):
     """returns 3d array, the third array listing all possible values for given position"""
     # creates empty 9x9 grid that will store a list of possible answers for each position.
-    possible_solutions = [[0 for _ in range(9)] for _ in range(9)]
-    for y, row in enumerate(sudoku_puzzle):
-        for x, column in enumerate(row):
-            position_possibilities = []
-            if sudoku_puzzle[y][x] == 0:
-                for i in range(1, 10):
-                    if (
-                        check_row(i, row)
-                        and check_column(i, x, sudoku_puzzle)
-                        and check_box(x, y, i, sudoku_puzzle)
-                    ):
-                        position_possibilities.append(i)
-            possible_solutions[y][x] = position_possibilities
-    return possible_solutions
-
-
-def check_row(i, row):
-    return i not in row
-
-
-def check_column(i, x, sudoku_puzzle):
+    all_values = []
     for row in sudoku_puzzle:
-        if i == row[x]:
-            return False
-    return True
+        all_values += row
+
+    while 0 in all_values:
+        fill_grid(all_values)
+
+    solution = []
+    start = 0
+    for x in range(9):
+        solution.append(all_values[start : start + 9])
+        start += 9
+    return solution
 
 
-def check_box(x, y, i, sudoku_puzzle):
+def fill_grid(all_values):
+    for i, val in enumerate(all_values):
+        if val == 0:
+            possible_vals = set()
+            for poss_val in range(1, 10):
+                if (
+                    check_row(poss_val, i, all_values) == False
+                    and check_column(poss_val, i, all_values) == False
+                    and check_quadrant(poss_val, i, all_values) == False
+                ):
+                    possible_vals.add(poss_val)
+            if len(possible_vals) == 1:
+                all_values[i] = possible_vals.pop()
+    return all_values
 
-    x_coordinate = math.floor(x / 3) * 3
-    y_coordinate = math.floor(y / 3) * 3
 
-    return check_area(x_coordinate, y_coordinate, i, sudoku_puzzle)
+def check_column(poss_val, i, vals):
+    col_index = i % 9
+    for _ in range(9):
+        if vals[col_index] == poss_val:
+            return True
+        col_index += 9
+    return False
 
 
-def check_area(x, y, i, sudoku_puzzle):
-    """checks to see if i already exists in the same quadrant"""
+def check_row(poss_val, i, vals):
+    end = i + (9 - (i % 9))
+    start = i - (i % 9)
+    if poss_val in vals[start:end]:
+        return True
+    return False
 
-    for col in range(x, x + 3):
-        for row in range(y, y + 3):
-            if sudoku_puzzle[row][col] == i:
-                return False
-    return True
+
+def check_quadrant(x, i, vals):
+    horizontal_adjustment = i % 3
+    vertical_adjustment = i - (i % 27) + (i % 9)
+    start = vertical_adjustment - horizontal_adjustment
+    for _ in range(3):
+        if x in vals[start : start + 3]:
+            return True
+        start += 9
+    return False

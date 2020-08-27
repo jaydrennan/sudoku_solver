@@ -1,4 +1,3 @@
-import json
 from flask import Flask, request, render_template, jsonify
 from sudoku_solver.sudoku_grid import Sudoku
 
@@ -21,7 +20,6 @@ def update():
 
     sudoku_grid = Sudoku(input_sudoku)
     final_solution = sudoku_grid.solve()
-
     return render_template("solutions.html", final_solution=final_solution)
 
 
