@@ -216,5 +216,3 @@ def test_update():
     ]
 
     assert update(possible_values, original_sudoku) == updated
-
-test_update()

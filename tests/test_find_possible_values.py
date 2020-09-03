@@ -44,9 +44,3 @@ def test_check_column():
 def test_check_area():
     assert check_area(0, 0, 1, original_sudoku) is True
     assert check_area(0, 0, 6, original_sudoku) is False
-
-
-test_find_possible_values()
-test_check_row()
-test_check_column()
-test_check_area()

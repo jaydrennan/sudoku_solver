@@ -32,6 +32,3 @@ def test_get_solution():
         assert len(row) == len(set(row))
         assert len(row) == 9
         assert 0 not in row
-
-
-test_get_solution()
