@@ -22,7 +22,7 @@ def test_find_possible_values():
     possible_values = find_possible_values(original_sudoku)
     for row in possible_values:
         for value in row:
-            if type(value) == "list":
+            if isinstance(value, list):
                 for possible_answer in value:
                     assert possible_answer < 10
                     assert possible_answer > 0
@@ -44,3 +44,9 @@ def test_check_column():
 def test_check_area():
     assert check_area(0, 0, 1, original_sudoku) is True
     assert check_area(0, 0, 6, original_sudoku) is False
+
+
+test_find_possible_values()
+test_check_row()
+test_check_column()
+test_check_area()

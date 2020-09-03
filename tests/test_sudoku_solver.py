@@ -1,18 +1,20 @@
 from sudoku_solver.sudoku_solver import get_solution
 
+original_sudoku = [
+    [4, 6, 9, 7, 5, 0, 3, 0, 0],
+    [0, 0, 0, 2, 3, 0, 0, 9, 5],
+    [5, 0, 0, 0, 0, 0, 0, 0, 0],
+    [7, 0, 8, 0, 9, 3, 0, 0, 6],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 0, 0, 1, 7, 0, 8, 0, 4],
+    [0, 0, 0, 0, 0, 0, 0, 0, 2],
+    [9, 7, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 1, 0, 4, 6, 9, 7, 3],
+]
+
 
 def test_get_solution():
-    original_sudoku = [
-        [4, 6, 9, 7, 5, 0, 3, 0, 0],
-        [0, 0, 0, 2, 3, 0, 0, 9, 5],
-        [5, 0, 0, 0, 0, 0, 0, 0, 0],
-        [7, 0, 8, 0, 9, 3, 0, 0, 6],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [2, 0, 0, 1, 7, 0, 8, 0, 4],
-        [0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [9, 7, 0, 0, 2, 1, 0, 0, 0],
-        [0, 0, 1, 0, 4, 6, 9, 7, 3],
-    ]
+
     solution = get_solution(original_sudoku)
     assert solution == [
         [4, 6, 9, 7, 5, 8, 3, 2, 1],
@@ -25,8 +27,11 @@ def test_get_solution():
         [9, 7, 4, 3, 2, 1, 5, 6, 8],
         [8, 2, 1, 5, 4, 6, 9, 7, 3],
     ]
-    assert len(solution) == 9
+    assert solution != []
     for row in solution:
         assert len(row) == len(set(row))
         assert len(row) == 9
         assert 0 not in row
+
+
+test_get_solution()
