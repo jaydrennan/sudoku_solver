@@ -1,17 +1,11 @@
 import copy
-from sudoku_solver.print_format import grid_as_string
 from sudoku_solver.find_possible_values import find_possible_values
 from sudoku_solver.updater import update
 
-class Sudoku:
 
+class Sudoku:
     def __init__(self, grid):
         self.grid = grid
-
-
-    def empty_grid(self):
-        self.grid = [[0 for j in range(9)] for k in range(9)]
-        return self.grid
 
     def solve(self):
         sudoku_position_possibilities = find_possible_values(self.grid)
@@ -28,5 +22,17 @@ class Sudoku:
 
         return iterations[0]
 
-    def display_to_terminal(self):
-        grid_as_string(self.grid)
+    def __str__(self):
+        grid_representation = "~~~~~~~~~~~~~~~~~~~~~\n"
+        for row_count, row in enumerate(self.grid):
+            for count_column, column in enumerate(row):
+                grid_representation += str(column) + " "
+                if count_column % 3 == 2 and count_column % 9 < 8:
+                    grid_representation += "|"
+                elif count_column % 9 == 8:
+                    grid_representation += "\n"
+            if row_count % 3 == 2 and row_count % 9 < 8:
+                grid_representation += "---------------------\n"
+            elif row_count == 8:
+                grid_representation += "~~~~~~~~~~~~~~~~~~~~~\n"
+        return grid_representation

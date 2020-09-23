@@ -1,5 +1,6 @@
 from sudoku_solver.sudoku_grid import Sudoku
 
+
 def test_sudoku_grid():
 
     grid_a = [
@@ -29,36 +30,16 @@ def test_sudoku_grid():
     sudoku_a = Sudoku(grid_a)
     sudoku_b = Sudoku(grid_b)
 
-    assert  sudoku_a != sudoku_b
+    assert sudoku_a != sudoku_b
     assert sudoku_a.solve() != sudoku_b.solve()
 
-def test_solver():
-    original_sudoku = [
-        [4, 6, 9, 7, 5, 0, 3, 0, 0],
-        [0, 0, 0, 2, 3, 0, 0, 9, 5],
-        [5, 0, 0, 0, 0, 0, 0, 0, 0],
-        [7, 0, 8, 0, 9, 3, 0, 0, 6],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [2, 0, 0, 1, 7, 0, 8, 0, 4],
-        [0, 0, 0, 0, 0, 0, 0, 0, 2],
-        [9, 7, 0, 0, 2, 1, 0, 0, 0],
-        [0, 0, 1, 0, 4, 6, 9, 7, 3],
-    ]
+
+def test_solver(original_sudoku, solved_sudoku):
 
     grid = Sudoku(original_sudoku)
 
     solution = grid.solve()
-    assert solution == [
-        [4, 6, 9, 7, 5, 8, 3, 2, 1],
-        [1, 8, 7, 2, 3, 4, 6, 9, 5],
-        [5, 3, 2, 6, 1, 9, 4, 8, 7],
-        [7, 1, 8, 4, 9, 3, 2, 5, 6],
-        [3, 4, 5, 8, 6, 2, 7, 1, 9],
-        [2, 9, 6, 1, 7, 5, 8, 3, 4],
-        [6, 5, 3, 9, 8, 7, 1, 4, 2],
-        [9, 7, 4, 3, 2, 1, 5, 6, 8],
-        [8, 2, 1, 5, 4, 6, 9, 7, 3],
-    ]
+    assert solution == solved_sudoku
     assert solution != []
     for row in solution:
         assert len(row) == len(set(row))

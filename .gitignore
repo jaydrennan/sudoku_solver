@@ -8,4 +8,5 @@ tests/.pytest_cache
 */.pyc
 .coverage
 tests/.coverage
+tests/completion_times.csv
 .pytest_cache

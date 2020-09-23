@@ -5,20 +5,8 @@ from sudoku_solver.find_possible_values import (
     check_area,
 )
 
-original_sudoku = [
-    [4, 6, 9, 7, 5, 0, 3, 0, 0],
-    [0, 0, 0, 2, 3, 0, 0, 9, 5],
-    [5, 0, 0, 0, 0, 0, 0, 0, 0],
-    [7, 0, 8, 0, 9, 3, 0, 0, 6],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [2, 0, 0, 1, 7, 0, 8, 0, 4],
-    [0, 0, 0, 0, 0, 0, 0, 0, 2],
-    [9, 7, 0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 1, 0, 4, 6, 9, 7, 3],
-]
 
-
-def test_find_possible_values():
+def test_find_possible_values(original_sudoku):
     possible_values = find_possible_values(original_sudoku)
     for row in possible_values:
         for value in row:
@@ -36,11 +24,11 @@ def test_check_row():
     assert len(row) == 9
 
 
-def test_check_column():
+def test_check_column(original_sudoku):
     assert check_column(5, 3, original_sudoku) is True
     assert check_column(5, 0, original_sudoku) is False
 
 
-def test_check_area():
+def test_check_area(original_sudoku):
     assert check_area(0, 0, 1, original_sudoku) is True
     assert check_area(0, 0, 6, original_sudoku) is False
