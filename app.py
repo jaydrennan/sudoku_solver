@@ -12,12 +12,13 @@ def index():
 
 @app.route("/update", methods=["GET", "POST"])
 def update():
-    input_sudoku = [[0 for j in range(9)] for k in range(9)]
+    input_sudoku = []
 
+    index = 0
     for y in range(9):
         for x in range(9):
-            input_sudoku[y][x] = int(request.form[f"{x}{y}"])
-
+            input_sudoku[index] = int(request.form[f"{x}{y}"])
+            index += 0
     sudoku_grid = Sudoku(input_sudoku)
     final_solution = sudoku_grid.solve()
     return render_template("solutions.html", final_solution=final_solution)
@@ -25,18 +26,17 @@ def update():
 
 @app.route("/json", methods=["POST"])
 def json_route():
-    input_sudoku = [[0 for j in range(9)] for k in range(9)]
-
+    input_sudoku = []
     sudoku_json = request.get_json()
-    for y in range(9):
-        for x in range(9):
-            input_sudoku[y][x] = int(sudoku_json[f"{x}{y}"])
+    for val in sudoku_json.values():
+        input_sudoku.append(int(val))
     sudoku_grid = Sudoku(input_sudoku)
     final_solution = sudoku_grid.solve()
     grid_dict = {}
 
     for y in range(9):
         for x in range(9):
+            # print(final_solution[y][x])
             grid_dict[f"{x}{y}"] = final_solution[y][x]
 
     solved_json = jsonify(grid_dict)

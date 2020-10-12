@@ -7,12 +7,12 @@ def test_index(original_sudoku):
     assert response.status_code == 200
 
 
-def test_json(original_sudoku, solved_sudoku):
+def test_json(original_sudoku_single, solved_sudoku):
 
     data = {}
-    for y in range(0, 9):
-        for x in range(0, 9):
-            data[f"{x}{y}"] = str(original_sudoku[y][x])
+    for i, val in enumerate(original_sudoku_single):
+        data[i] = str(val)
+
     json_data = json.dumps(data)
     response = app.test_client().post(
         "/json", data=json_data, content_type="application/json",

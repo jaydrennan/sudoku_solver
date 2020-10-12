@@ -4,17 +4,13 @@ import math
 def solve_grid(sudoku_puzzle):
     """returns 3d array, the third array listing all possible values for given position"""
     # creates empty 9x9 grid that will store a list of possible answers for each position.
-    all_values = []
-    for row in sudoku_puzzle:
-        all_values += row
 
-    while 0 in all_values:
-        fill_grid(all_values)
-
+    while 0 in sudoku_puzzle:
+        sudoku_puzzle = fill_grid(sudoku_puzzle)
     solution = []
     start = 0
     for x in range(9):
-        solution.append(all_values[start : start + 9])
+        solution.append(sudoku_puzzle[start : start + 9])
         start += 9
     return solution
 

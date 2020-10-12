@@ -38,9 +38,9 @@ def test_sudoku_grid():
     assert sudoku_a.solve() != sudoku_b.solve()
 
 
-def test_solver(original_sudoku, solved_sudoku):
+def test_solver(original_sudoku_single, solved_sudoku):
 
-    grid = Sudoku(original_sudoku)
+    grid = Sudoku(original_sudoku_single)
 
     solution = grid.solve()
     assert solution == solved_sudoku
@@ -51,13 +51,14 @@ def test_solver(original_sudoku, solved_sudoku):
         assert 0 not in row
 
 
-def test_time(original_sudoku):
+def test_time(original_sudoku_single, solved_sudoku):
     total_time = 0
     for i in range(10000):
-        grid = Sudoku(original_sudoku)
+        grid = Sudoku(original_sudoku_single)
         start = time.perf_counter()
-        grid.solve()
+        solution = grid.solve()
         finish = time.perf_counter()
+        assert solution == solved_sudoku
         diff = finish - start
         total_time += diff
     print(total_time)
