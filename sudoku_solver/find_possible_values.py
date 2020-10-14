@@ -7,12 +7,13 @@ def solve_grid(sudoku_puzzle):
 
     while 0 in sudoku_puzzle:
         sudoku_puzzle = fill_grid(sudoku_puzzle)
-    solution = []
-    start = 0
-    for x in range(9):
-        solution.append(sudoku_puzzle[start : start + 9])
-        start += 9
-    return solution
+    # solution = []
+    # start = 0
+    #
+    # for x in range(9):
+    #     solution.append(sudoku_puzzle[start : start + 9])
+    #     start += 9
+    return sudoku_puzzle
 
 
 def fill_grid(all_values):

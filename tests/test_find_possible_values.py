@@ -7,9 +7,9 @@ from sudoku_solver.find_possible_values import (
 )
 
 
-def test_solve(original_sudoku_single, solved_sudoku):
+def test_solve(original_sudoku_single, solution_single):
     solution = solve_grid(original_sudoku_single)
-    assert solution == solved_sudoku
+    assert solution == solution_single
 
 
 def test_fill_grid(original_sudoku_single, solution_single):
