@@ -11,6 +11,13 @@ def test_solve(original_sudoku_single, solution_single):
     solution = solve_grid(original_sudoku_single)
     assert solution == solution_single
 
+def test_difficulty(medium, medium_solution, hard, hard_solution, extremly_hard,extremely_solution):
+    solution_medium = solve_grid(medium)
+    assert solution_medium == medium_solution
+    solution_hard = solve_grid(hard)
+    assert solution_hard == hard_solution
+    # solution_extreme = solve_grid(extremly_hard)
+    # assert solution_extreme == extremely_solution
 
 def test_fill_grid(original_sudoku_single, solution_single):
     fill_grid(original_sudoku_single)
@@ -31,4 +38,3 @@ def test_check_quadrant(original_sudoku_single):
     assert check_quadrant(7, 79, original_sudoku_single) is True
     assert check_quadrant(1, 1, original_sudoku_single) is False
     assert check_quadrant(2, 5, original_sudoku_single) is True
-

@@ -3,7 +3,7 @@ import csv
 from datetime import datetime
 
 from sudoku_solver.sudoku_grid import Sudoku
-from sudoku_solver_original.sudoku_grid_original import Sudoku_original
+from sudoku_solver_original.sudoku_grid_original import SudokuOriginal
 
 
 def test_sudoku_grid():
@@ -53,7 +53,7 @@ def test_solver(original_sudoku_single, solution_single):
 def test_time(original_sudoku, original_sudoku_single, solved_sudoku, solution_single):
     total_time_original = 0
     for i in range(10000):
-        grid = Sudoku_original(original_sudoku)
+        grid = SudokuOriginal(original_sudoku)
         start = time.perf_counter()
         solution = grid.solve()
         finish = time.perf_counter()
@@ -78,4 +78,3 @@ def test_time(original_sudoku, original_sudoku_single, solved_sudoku, solution_s
 
         time_record.writerow([datetime.now(), total_time_original, "original"])
         time_record.writerow([datetime.now(), total_time_new, "new"])
-

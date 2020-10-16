@@ -34,10 +34,12 @@ def json_route():
     final_solution = sudoku_grid.solve()
     grid_dict = {}
 
+    index = 0
     for y in range(9):
         for x in range(9):
             # print(final_solution[y][x])
-            grid_dict[f"{x}{y}"] = final_solution[y][x]
+            grid_dict[f"{x}{y}"] = final_solution[index]
+            index += 1
 
     solved_json = jsonify(grid_dict)
     return solved_json
