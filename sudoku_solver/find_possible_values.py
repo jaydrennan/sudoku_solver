@@ -1,4 +1,4 @@
-import math
+from sudoku_solver.show_grid import show
 
 
 def solve_grid(sudoku_puzzle):
@@ -9,51 +9,79 @@ def solve_grid(sudoku_puzzle):
     while 0 in sudoku_puzzle:
         sudoku_puzzle = fill_grid(sudoku_puzzle)
         if empty_count == sudoku_puzzle.count(0):
-            print("Unable to solve.")
+            raise Exception("Unable to solve.")
             break
         empty_count = sudoku_puzzle.count(0)
     return sudoku_puzzle
 
 
 def fill_grid(all_values):
-    for i, val in enumerate(all_values):
-        if val == 0:
-            possible_vals = set()
-            for poss_val in range(1, 10):
-                if (
-                    check_row(poss_val, i, all_values) == False
-                    and check_column(poss_val, i, all_values) == False
-                    and check_quadrant(poss_val, i, all_values) == False
-                ):
-                    possible_vals.add(poss_val)
-            if len(possible_vals) == 1:
-                all_values[i] = possible_vals.pop()
+    needed_values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    starting_points = [0, 3, 6, 27, 30, 33, 54, 57, 60]
+    for starting_point in starting_points:
+        quadrant = (
+            all_values[starting_point : starting_point + 3]
+            + all_values[starting_point + 9 : starting_point + 12]
+            + all_values[starting_point + 18 : starting_point + 21]
+        )
+
+        if 0 in quadrant:
+            empty_indexes = []
+            for i, val in enumerate(quadrant):
+                if val == 0:
+                    empty_indexes.append(i)
+            missing_values = list(set(needed_values) - set(quadrant))
+            index_possible_solutions = {}
+            for i in empty_indexes:
+                possible_values = []
+                row_start = int(
+                    starting_point - (starting_point % 9) + (((i - (i % 3)) / 3) * 9)
+                )
+                col_start = starting_point + (i % 3) - ((starting_point // 9) * 9)
+                for val in missing_values:
+                    if (
+                        row(row_start, val, all_values) == False
+                        and column(col_start, val, all_values) == False
+                    ):
+                        possible_values.append(val)
+                if len(possible_values) == 1:
+                    quadrant[i] = possible_values[0]
+                    missing_values.remove(possible_values[0])
+                else:
+                    index_possible_solutions[i] = possible_values
+
+            all_possible_values = compile_all_possible_values(index_possible_solutions)
+            for val in missing_values:
+                if all_possible_values.count(val) == 1:
+                    for key in index_possible_solutions:
+                        if val in index_possible_solutions[key]:
+                            quadrant[key] = val
+
+            all_values[starting_point : starting_point + 3] = quadrant[0:3]
+            all_values[starting_point + 9 : starting_point + 12] = quadrant[3:6]
+            all_values[starting_point + 18 : starting_point + 21] = quadrant[6:10]
     return all_values
 
 
-def check_column(poss_val, i, vals):
-    col_index = i % 9
-    for _ in range(9):
-        if vals[col_index] == poss_val:
-            return True
-        col_index += 9
-    return False
+def compile_all_possible_values(index_possible_solutions):
+    all_possible_values = []
+    for vals in index_possible_solutions.values():
+        all_possible_values += vals
+    return all_possible_values
 
 
-def check_row(poss_val, i, vals):
-    end = i + (9 - (i % 9))
-    start = i - (i % 9)
-    if poss_val in vals[start:end]:
+def row(row_start, val, all_values):
+    start = row_start
+    end = start + 9
+    if val in all_values[start:end]:
         return True
     return False
 
 
-def check_quadrant(x, i, vals):
-    horizontal_adjustment = i % 3
-    vertical_adjustment = i - (i % 27) + (i % 9)
-    start = vertical_adjustment - horizontal_adjustment
-    for _ in range(3):
-        if x in vals[start : start + 3]:
+def column(col_start, val, all_values):
+    for _ in range(9):
+        if all_values[col_start] == val:
             return True
-        start += 9
+        col_start += 9
     return False
