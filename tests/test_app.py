@@ -1,5 +1,5 @@
 import json
-from app import app
+from application.app import app
 
 
 def test_index(original_sudoku):

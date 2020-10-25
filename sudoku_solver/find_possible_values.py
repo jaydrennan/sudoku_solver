@@ -1,6 +1,3 @@
-from sudoku_solver.show_grid import show
-
-
 def solve_grid(sudoku_puzzle):
     """returns 3d array, the third array listing all possible values for given position"""
     # creates empty 9x9 grid that will store a list of possible answers for each position.
