@@ -1,6 +1,12 @@
 def solve_grid(sudoku_puzzle):
-    """returns 3d array, the third array listing all possible values for given position"""
-    # creates empty 9x9 grid that will store a list of possible answers for each position.
+    """
+    Recieves unsolved Sudoku puzzle in the form of a single list. Returns a completed list.
+
+    Expects a list with all given values and 0's in place of unknown values.
+    The list parameter and return list are the sudoku puzzle's rows combined into a single list,
+    from top to bottom.
+    """
+    print(sudoku_puzzle)
 
     empty_count = sudoku_puzzle.count(0)
     while 0 in sudoku_puzzle:
@@ -9,6 +15,7 @@ def solve_grid(sudoku_puzzle):
             raise Exception("Unable to solve.")
             break
         empty_count = sudoku_puzzle.count(0)
+    print(sudoku_puzzle)
     return sudoku_puzzle
 
 
@@ -38,8 +45,8 @@ def fill_grid(all_values):
                 col_start = starting_point + (i % 3) - ((starting_point // 9) * 9)
                 for val in missing_values:
                     if (
-                        row(row_start, val, all_values) == False
-                        and column(col_start, val, all_values) == False
+                        row(row_start, val, all_values) is False
+                        and column(col_start, val, all_values) is False
                     ):
                         possible_values.append(val)
                 if len(possible_values) == 1:

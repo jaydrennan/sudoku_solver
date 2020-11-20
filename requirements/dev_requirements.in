@@ -1,0 +1,5 @@
+-c requirements.txt
+black==19.10b0
+pytest
+coverage
+flake8

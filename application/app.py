@@ -13,12 +13,9 @@ def index():
 @app.route("/update", methods=["GET", "POST"])
 def update():
     input_sudoku = []
-
-    index = 0
     for y in range(9):
         for x in range(9):
-            input_sudoku[index] = int(request.form[f"{x}{y}"])
-            index += 0
+            input_sudoku.append(int(request.form[f"{x}{y}"]))
     sudoku_grid = Sudoku(input_sudoku)
     final_solution = sudoku_grid.solve()
     return render_template("solutions.html", final_solution=final_solution)
