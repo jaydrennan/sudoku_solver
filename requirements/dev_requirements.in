@@ -3,3 +3,4 @@ black==19.10b0
 pytest
 coverage
 flake8
+pep8-naming
