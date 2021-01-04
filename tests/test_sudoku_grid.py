@@ -1,4 +1,5 @@
 from sudoku_solver.sudoku_grid import Sudoku
+import pytest
 
 
 def test_sudoku_grid():
@@ -43,3 +44,10 @@ def test_solver(original_sudoku_single, solution_single):
     assert len(solution) == 81
     assert 0 not in solution
     assert solution != []
+
+
+def test_str(original_sudoku_single):
+    grid = Sudoku(original_sudoku_single)
+    formatted_grid = "~~~~~~~~~~~~~~~~~~~~~\n469|750|300|\n000|230|095|\n500|000|000|\n708|093|006|\n000|000|000|\n200|170|804|\n000|000|002|\n970|021|000|\n001|046|973|\n"
+
+    assert str(grid) == formatted_grid

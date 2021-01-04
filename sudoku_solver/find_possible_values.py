@@ -1,21 +1,18 @@
 def solve_grid(sudoku_puzzle):
     """
-    Recieves unsolved Sudoku puzzle in the form of a single list. Returns a completed list.
+    Receives unsolved Sudoku puzzle in the form of a single list. Returns a completed list.
 
     Expects a list with all given values and 0's in place of unknown values.
     The list parameter and return list are the sudoku puzzle's rows combined into a single list,
     from top to bottom.
     """
-    print(sudoku_puzzle)
 
     empty_count = sudoku_puzzle.count(0)
     while 0 in sudoku_puzzle:
         sudoku_puzzle = fill_grid(sudoku_puzzle)
         if empty_count == sudoku_puzzle.count(0):
             raise Exception("Unable to solve.")
-            break
         empty_count = sudoku_puzzle.count(0)
-    print(sudoku_puzzle)
     return sudoku_puzzle
 
 

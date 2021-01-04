@@ -1,4 +1,5 @@
 import json
+from unittest.mock import Mock
 from application.app import app
 
 
@@ -23,3 +24,13 @@ def test_json(original_sudoku_single, solved_sudoku):
     for y in range(9):
         for x in range(9):
             assert str(response_solution[f"{x}{y}"]) == str(solved_sudoku[y][x])
+
+
+def test_update(original_sudoku_single):
+    form_data = {}
+    i = 0
+    for y in range(9):
+        for x in range(9):
+            form_data[f"{x}{y}"] = original_sudoku_single[i]
+    response = app.test_client().post("/update", data=form_data)
+    assert response.status_code == 200

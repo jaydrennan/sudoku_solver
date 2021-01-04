@@ -24,9 +24,8 @@ def test_hard(hard, hard_solution):
 
 
 @pytest.mark.xfail
-def test_extreme(extremly_hard, extremely_solution):
-    solution_extreme = solve_grid(extremly_hard)
-    assert solution_extreme == extremely_solution
+def test_extreme(extremly_hard):
+    solve_grid(extremly_hard)
 
 
 def test_fill_grid(medium):
