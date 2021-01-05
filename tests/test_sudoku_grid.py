@@ -1,5 +1,4 @@
 from sudoku_solver.sudoku_grid import Sudoku
-import pytest
 
 
 def test_sudoku_grid():
