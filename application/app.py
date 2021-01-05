@@ -40,7 +40,3 @@ def json_route():
 
     solved_json = jsonify(grid_dict)
     return solved_json
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)

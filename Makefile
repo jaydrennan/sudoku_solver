@@ -18,11 +18,11 @@ build:
 	DOCKER_BUILDKIT=1 docker build -t jdrennan/sudoku:latest .
 
 run: build
-	docker run -p 5000:5000 jdrennan/sudoku
+	docker run -p 5000:8000 jdrennan/sudoku
 
 linter:
 	flake8 --ignore=E203,E501,W503 .
 
 freeze: requirements/requirements.in requirements/dev_requirements.in
-	pip-compile --output-file=requirements/requirements.txt requirements/requirements.in
-	pip-compile --output-file=requirements/dev_requirements.txt requirements/dev_requirements.in
+	pip-compile --upgrade --output-file=requirements/requirements.txt requirements/requirements.in
+	pip-compile --upgrade --output-file=requirements/dev_requirements.txt requirements/dev_requirements.in

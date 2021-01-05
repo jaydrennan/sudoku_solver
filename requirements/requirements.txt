@@ -4,9 +4,28 @@
 #
 #    pip-compile --output-file=requirements/requirements.txt requirements/requirements.in
 #
-click==7.1.2              # via flask
-flask==1.1.2              # via -r requirements/requirements.in
-itsdangerous==1.1.0       # via flask
-jinja2==2.11.2            # via flask
-markupsafe==1.1.1         # via jinja2
-werkzeug==1.0.1           # via flask
+click==7.1.2
+    # via flask
+flask==1.1.2
+    # via -r requirements/requirements.in
+gevent==20.12.1
+    # via -r requirements/requirements.in
+greenlet==0.4.17
+    # via gevent
+gunicorn==20.0.4
+    # via -r requirements/requirements.in
+itsdangerous==1.1.0
+    # via flask
+jinja2==2.11.2
+    # via flask
+markupsafe==1.1.1
+    # via jinja2
+werkzeug==1.0.1
+    # via flask
+zope.event==4.5.0
+    # via gevent
+zope.interface==5.2.0
+    # via gevent
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
