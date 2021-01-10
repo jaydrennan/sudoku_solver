@@ -3,22 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Sudoku</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/main.js') }}"></script>
+
 </head>
+
 <body>
 
 <h2>Enter Known Values:</h2>
-    <form action="/update" method="post">
-        {% for y in range(0,9) %}
-            {% for x in range(0,9) %}
-                <input type='text' name='{{x}}{{y}}' value = '0' size="2">
-            {%  endfor %}
-            <br>
-        {% endfor %}
-        <input type='submit' value='Submit'>
-    </form>
+<form name="puzzle">
 
+    {% for y in range(0,9) %}
+        {% for x in range(0,9) %}
+            <input type='text' name='{{ x }}{{ y }}' value='0' size="1">
+        {% endfor %}
+        <br>
+    {% endfor %}
+    <button id='send'>Submit</button>
+
+</form>
+<div id="row0">
+
+</div>
+<div id="row1">
+
+</div>
+<div id="row2">
+
+</div>
+<div id="row3">
+
+</div>
+<div id="row4">
+
+</div>
+<div id="row5">
+
+</div>
+<div id="row6">
+
+</div>
+<div id="row7">
+
+</div>
+<div id="row8">
+
+</div>
 
 
 </body>
 </html>
+
+
+
+
+
+
+
+

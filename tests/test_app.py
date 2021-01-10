@@ -7,15 +7,18 @@ def test_index(original_sudoku):
     assert response.status_code == 200
 
 
-def test_json(original_sudoku_single, solved_sudoku):
-
-    data = {}
-    for i, val in enumerate(original_sudoku_single):
-        data[i] = str(val)
+def test_solve(original_sudoku_single, solved_sudoku):
+    data = []
+    i = 0
+    for y in range(9):
+        for x in range(9):
+            input_key = str(y) + str(x)
+            data.append({"name": input_key, "value": original_sudoku_single[i]})
+            i += 1
 
     json_data = json.dumps(data)
     response = app.test_client().post(
-        "/json", data=json_data, content_type="application/json",
+        "/solve", data=json_data, content_type="application/json",
     )
     assert response.status_code == 200
 
@@ -23,13 +26,3 @@ def test_json(original_sudoku_single, solved_sudoku):
     for y in range(9):
         for x in range(9):
             assert str(response_solution[f"{x}{y}"]) == str(solved_sudoku[y][x])
-
-
-def test_update(original_sudoku_single):
-    form_data = {}
-    i = 0
-    for y in range(9):
-        for x in range(9):
-            form_data[f"{x}{y}"] = original_sudoku_single[i]
-    response = app.test_client().post("/update", data=form_data)
-    assert response.status_code == 200
