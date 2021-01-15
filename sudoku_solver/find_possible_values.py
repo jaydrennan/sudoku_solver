@@ -11,7 +11,8 @@ def solve_grid(sudoku_puzzle):
     while 0 in sudoku_puzzle:
         sudoku_puzzle = fill_grid(sudoku_puzzle)
         if empty_count == sudoku_puzzle.count(0):
-            raise Exception("Unable to solve.")
+            return sudoku_puzzle
+            # raise Exception("Unable to solve.")
         empty_count = sudoku_puzzle.count(0)
     return sudoku_puzzle
 

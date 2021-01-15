@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, abort
 from sudoku_solver.sudoku_grid import Sudoku
 
 
@@ -16,8 +16,15 @@ def solve():
     input_sudoku = []
     sudoku_json = request.get_json()
     for box in sudoku_json:
-        input_sudoku.append(int(box["value"]))
+        if box["value"] == "":
+            input_sudoku.append(0)
+        else:
+            input_sudoku.append(int(box["value"]))
     sudoku_grid = Sudoku(input_sudoku)
+
+    # if sudoku_grid.is_valid() == False:
+    #     abort(433, description="Invalid sudoku puzzle")
+
     final_solution = sudoku_grid.solve()
     grid_dict = {}
 
@@ -29,3 +36,8 @@ def solve():
     solved_json = jsonify(grid_dict)
 
     return solved_json
+
+
+# @app.errorhandler(433)
+# def resource_not_found(e):
+#     return jsonify(error=str(e)), 433
