@@ -1,5 +1,10 @@
-def validate(grid):
-    return rows_valid(grid) and columns_valid(grid) and quadrants_valid(grid)
+def is_valid_sudoku_grid(grid):
+    return (
+        rows_valid(grid)
+        and columns_valid(grid)
+        and quadrants_valid(grid)
+        and correct_range(grid)
+    )
 
 
 def rows_valid(grid):
@@ -37,4 +42,11 @@ def quadrants_valid(grid):
         for i in range(1, 10):
             if quadrant.count(i) > 1:
                 return False
+    return True
+
+
+def correct_range(grid):
+    for val in grid:
+        if val < 0 or val > 9:
+            return False
     return True
