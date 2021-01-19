@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, abort
 from sudoku_solver.sudoku_grid import Sudoku
 
 
@@ -10,33 +10,39 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/update", methods=["GET", "POST"])
-def update():
-    input_sudoku = []
-    for y in range(9):
-        for x in range(9):
-            input_sudoku.append(int(request.form[f"{x}{y}"]))
-    sudoku_grid = Sudoku(input_sudoku)
-    final_solution = sudoku_grid.solve()
-    return render_template("solutions.html", final_solution=final_solution)
+@app.route("/solve", methods=["POST"])
+def solve():
 
-
-@app.route("/json", methods=["POST"])
-def json_route():
-    input_sudoku = []
     sudoku_json = request.get_json()
-    for val in sudoku_json.values():
-        input_sudoku.append(int(val))
+
+    input_sudoku = [convert_to_ints(box["value"]) for box in sudoku_json]
+
     sudoku_grid = Sudoku(input_sudoku)
+
+    if not sudoku_grid.is_valid():
+        abort(
+            400,
+            description="There are either repeat values in row, column, or quadrant. Or value is out of range(1-9)",
+        )
+
     final_solution = sudoku_grid.solve()
     grid_dict = {}
 
     index = 0
     for y in range(9):
         for x in range(9):
-            # print(final_solution[y][x])
             grid_dict[f"{x}{y}"] = final_solution[index]
             index += 1
-
     solved_json = jsonify(grid_dict)
     return solved_json
+
+
+@app.errorhandler(400)
+def resource_not_found(e):
+    return jsonify(error=str(e)), 400
+
+
+def convert_to_ints(val):
+    if val == "":
+        return 0
+    return int(val)

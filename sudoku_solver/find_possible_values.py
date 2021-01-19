@@ -1,3 +1,10 @@
+from sudoku_solver.validate_puzzle import is_valid_sudoku_grid
+
+
+class InvalidSudokuValueError(Exception):
+    """Raised if there is a value outside of 0-9 or when there are repeat values in a row, column, or quadrant"""
+
+
 def solve_grid(sudoku_puzzle):
     """
     Receives unsolved Sudoku puzzle in the form of a single list. Returns a completed list.
@@ -8,10 +15,16 @@ def solve_grid(sudoku_puzzle):
     """
 
     empty_count = sudoku_puzzle.count(0)
+
+    if not is_valid_sudoku_grid(sudoku_puzzle):
+        raise InvalidSudokuValueError(
+            "Either repeat values in row, column, or quadrant. Or value out of range."
+        )
+
     while 0 in sudoku_puzzle:
         sudoku_puzzle = fill_grid(sudoku_puzzle)
         if empty_count == sudoku_puzzle.count(0):
-            raise Exception("Unable to solve.")
+            return sudoku_puzzle
         empty_count = sudoku_puzzle.count(0)
     return sudoku_puzzle
 

@@ -2,23 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sudoku</title>
+    <title>Sudoku Solver</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/main.js') }}"></script>
 </head>
+
 <body>
-
-<h2>Enter Known Values:</h2>
-    <form action="/update" method="post">
-        {% for y in range(0,9) %}
-            {% for x in range(0,9) %}
-                <input type='text' name='{{x}}{{y}}' value = '0' size="2">
-            {%  endfor %}
-            <br>
+<div class="container" >
+<div class="row centered">
+    <div class="col text-center">
+        <h2>Sudoku Solver</h2>
+    </div></div>
+<div class="puzzle d-flex justify-content-center" name="puzzle">
+<form class="text-center sudoku-input">
+    {% for y in range(0,9) %}
+        <div class="row flex-nowrap justify-content-center">
+        {% for x in range(0,9) %}
+            {% if (x == 2 or x == 5) and (y == 2 or y == 5) %}
+                        <div class="col w-auto input-box px-0 border-bottom border-end border-dark"><input id='{{ x }}{{ y }}' class = "form-control" size="1" maxlength="1" min="1" max="9" name='{{ x }}{{ y }}' size="1"></div>
+            {% elif y == 2 or y == 5 %}
+                        <div class="col w-auto px-0 border-bottom border-dark"><input id='{{ x }}{{ y }}' class = "form-control" size="1" maxlength="1" min="1" max="9" name='{{ x }}{{ y }}' size="1"></div>
+            {% elif x == 2 or x == 5 %}
+                        <div class="col w-auto px-0 border-end border-dark"><input id='{{ x }}{{ y }}' class = "form-control" size="1" maxlength="1" min="1" max="9" name='{{ x }}{{ y }}' size="1"></div>
+            {% else %}
+                        <div class="col w-auto px-0"><input id='{{ x }}{{ y }}' class = "form-control" size="1" maxlength="1" min="1" max="9" name='{{ x }}{{ y }}'  size="1"></div>
+            {% endif %}
         {% endfor %}
-        <input type='submit' value='Submit'>
-    </form>
 
+            </div>
+    {% endfor %}
+    <div class ="row d-flex justify-content-center p-2">
+        
+        <div class = "col-sm-2">
+            <button type="button" class="btn btn-warning" id='clear'>Clear</button>
+        </div>
+    </div>
 
+</form>
+
+</div>
+<div class="error-message row justify-content-center p-2">
+    <div class = "col-sm-6" align="center">
+    <p class="alert alert-danger">Values out of range(1-9) or repeat values in row, column, or quadrant.</p>
+    </div>
+</div>
+
+</div>
 
 </body>
 </html>
+
+
+
+
+
+
+
+

@@ -1,9 +1,13 @@
 from sudoku_solver.find_possible_values import solve_grid
+from sudoku_solver.validate_puzzle import is_valid_sudoku_grid
 
 
 class Sudoku:
     def __init__(self, grid):
         self.grid = grid
+
+    def is_valid(self):
+        return is_valid_sudoku_grid(self.grid)
 
     def solve(self):
         return solve_grid(self.grid)
